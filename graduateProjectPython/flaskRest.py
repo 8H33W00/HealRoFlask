@@ -28,6 +28,7 @@ app = Flask(__name__)
 def test():
     
     train = pd.read_csv('./csvfile/results.csv')
+    print('git Test')
     
   
     return NULL
