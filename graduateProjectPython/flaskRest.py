@@ -244,11 +244,6 @@ def heartDisease2():
     res = json.loads(s1)
     return jsonpify( np.array(res).tolist())
     
-
-    
-   
-    
-
     
     
 if __name__=='__main__':
