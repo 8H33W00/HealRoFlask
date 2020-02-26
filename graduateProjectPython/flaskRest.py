@@ -244,15 +244,10 @@ def heartDisease2():
     res = json.loads(s1)
     return jsonpify( np.array(res).tolist())
     
-
-    
-   
-    
-
     
     
-if __name__ == '__main__': app.run()
-    
+if __name__=='__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
     
     
     
