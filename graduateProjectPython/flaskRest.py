@@ -60,11 +60,11 @@ def Test():
     importances_df["importances"] = (importances_df["importances"]/importances_df["importances"].values.sum())*100
     print(importances_df.head(10))
     
-Test()
+#Test()
 
 @app.route('/', methods=['GET'])
 def start():
-    return "test OK"
+    return "test OK2"
     
 
 #87
