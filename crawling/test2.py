@@ -16,6 +16,7 @@ for city in cities:
     index = 1
     for container in containers:
         try:
+            # 이미지주소, 병원명, 병원사이트주소 크롤링
             rawImg = driver.find_element_by_css_selector(
                 f'#DIV_LIST > table > tbody > tr:nth-child({index}) > td:nth-child(1) > div > img').get_attribute('src')
             img = 'http://www.hospitalmaps.or.kr/hm' + rawImg[2:]
@@ -23,26 +24,41 @@ for city in cities:
                 f'#DIV_LIST > table > tbody > tr:nth-child({index}) > td:nth-child(2) > b > a').text
             webAddr = driver.find_element_by_css_selector(
                 f'#DIV_LIST > table > tbody > tr:nth-child({index}) > td:nth-child(2) > a:nth-child(4)').text
-            print(city)
+
+            if webAddr.find('http') == -1:
+                webAddr = '-'
+
             print(title)
             print(img)
             print(webAddr)
 
+            # 상세페이지로 이동
             driver.find_element_by_css_selector(
                 f'#DIV_LIST > table > tbody > tr:nth-child({index}) > td:nth-child(2) > b > a').click()
+
+            # 주소 크롤링
             test = driver.find_element_by_css_selector(
                 'body > center > table:nth-child(3) > tbody > tr > td > table:nth-child(3) > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td').text
-            test_list2 = test.split('TEL')
-            print(test_list2[0][:-1])
+            test_list2 = test.split('TEL')[0][:-1].replace("\'", "").strip()
+
+            if len(test_list2) <= 3:
+                test_list2 = '-'
+
+            print(test_list2)
 
 
+            # 전화번호 크롤링
             test_list = test.split('FAX')
             temp = test_list[0]
-            realNum = temp.split('TEL : ')
-            print(realNum[1][:-1])
+            realNum = temp.split('TEL : ')[1][:-1].replace("\'", "").strip()
+
+            if realNum.find('-') == -1:
+                realNum = '-'
+
+            print(realNum)
 
             driver.back()
-            time.sleep(2)
+            time.sleep(1)
             index += 2
         except:
             break
