@@ -1,13 +1,15 @@
+from flask import Flask
 import pymysql
 
 
-class Database():
+class Database:
     def __init__(self):
-        self.db = pymysql.connect(host='localhost',
-                                  user='root',
-                                  password='your_password',
-                                  db='your_dbname',
-                                  charset='utf8')
+        self.db = pymysql.connect(host='healrodb.ciovcwimqlrt.us-east-2.rds.amazonaws.com',
+                                  user='healro',
+                                  password='hongikhealro',
+                                  db='healrodb',
+                                  charset='utf8',
+                                  port='3306')
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
 
     def execute(self, query, args={}):
@@ -23,5 +25,5 @@ class Database():
         row = self.cursor.fetchall()
         return row
 
-    def commit():
+    def commit(self):
         self.db.commit()
